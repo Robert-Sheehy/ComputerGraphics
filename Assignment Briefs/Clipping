@@ -1,0 +1,7 @@
+Create a class called OutCode
+  Add Script in Unity Called OutCode
+    Edit remove monobehaviour and start/ update
+    Add a constructor with a parameter of Vector2 point
+    Add a method to display the outcode..
+    Create a method (operator) for logical AND *   OR +  EQUALS ==  NOT EQUAL  != 
+
