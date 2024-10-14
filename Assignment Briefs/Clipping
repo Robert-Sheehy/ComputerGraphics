@@ -4,4 +4,6 @@ Create a class called OutCode
     Add a constructor with a parameter of Vector2 point
     Add a method to display the outcode..
     Create a method (operator) for logical AND *   OR +  EQUALS ==  NOT EQUAL  != 
+    Create second constructor parameters (bool upIn , downIn leftIn, rightIn )
 
+  
