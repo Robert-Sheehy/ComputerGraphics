@@ -1,0 +1,12 @@
+Add new Script OutCode.cs in unity
+  Get rid of the :monobehaviour, start and update methods
+  4 bool up, down, left, right
+  public OutCode(Vector2 v)
+  public OutCode() // produces the 0000 ie in viewport OutCode
+  public OutCode(OutCode oc) // a copy of given OutCode
+  public OutCode(bool up,down,left,right
+  operator + (which will logically OR)
+  operator * (which will logically AND)
+  operator == (tests if 2 Outcodes are Equal)
+  operator !=   
+  display/print/ToString
