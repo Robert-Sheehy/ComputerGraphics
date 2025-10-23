@@ -10,7 +10,7 @@
         List<int> dummy_indices = new List<int>();
         /*List<Vector2> text_coords = new List<Vector2>();
         List<Vector3> normalz = new List<Vector3>();*/
-
+//fghfg
         for (int i = 0; i < faces.Count; i++)
         {
             //Vector3 normal_for_face = normals[i];
