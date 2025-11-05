@@ -9,4 +9,4 @@ Add new Script OutCode.cs in unity
   operator * (which will logically AND)
   operator == (tests if 2 Outcodes are Equal)
   operator !=   
-  display/print/ToString
+  display/print/ToString    
