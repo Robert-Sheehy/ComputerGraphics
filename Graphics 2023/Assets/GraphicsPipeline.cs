@@ -106,4 +106,52 @@ public class GraphicsPipeline : MonoBehaviour
     {
         
     }
+
+
+    Vector2 Intercept(Vector2 start, Vector2 end, int edgeIndex)
+    {
+        if (end.x != start.x)
+        {
+            float m = (end.y - start.y) / (end.x - start.x);
+
+            switch (edgeIndex)
+            {
+                case 0:  // Top Edge  y = 1 whats x?
+                    //  x = x1 + (1/m) ( y - y1)
+                    if ( m != 0)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                        break;
+                    case 1:  // Bottom Edge y = -1 whats x?
+
+                    break;
+                    case 2:  // Left Edge x = -1 what y?
+                             //    y = y1 + m(x - x1)
+                    float y = start.y + m * (-1 - start.x);
+
+                    return new Vector2(1, y);
+                    break;
+                    default: // Right Egde x = 1 whats y?
+                    //    y = y1 + m(x - x1)
+                    float y = start.y + m * (1 - start.x);
+
+                    return new Vector2(1, y);
+                    break;
+            }
+
+
+        }
+        else
+        {
+
+        }
+
+    }
+
+
 }
