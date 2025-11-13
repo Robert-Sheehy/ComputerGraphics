@@ -10,7 +10,7 @@ public class GraphicsPipeline : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        writer = new StreamWriter("Data.txt",false);
+        writer = new StreamWriter("Data.txt", false);
 
         Model myModel = new Model();
 
@@ -20,7 +20,7 @@ public class GraphicsPipeline : MonoBehaviour
 
 
 
-       Vector3 axis = (new Vector3(-2,1,1)).normalized;
+        Vector3 axis = (new Vector3(-2, 1, 1)).normalized;
         Matrix4x4 rotationMatrix =
             Matrix4x4.TRS(Vector3.zero,
                         Quaternion.AngleAxis(-25, axis),
@@ -52,8 +52,8 @@ public class GraphicsPipeline : MonoBehaviour
     private void writeMatrixToFile(Matrix4x4 matrix, string before, string after)
     {
         writer.WriteLine(before);
-        
-        for (int i = 0; i<4; i++)
+
+        for (int i = 0; i < 4; i++)
         {
             Vector4 v = matrix.GetRow(i);
             writer.WriteLine(" ( " + v.x + " , " + v.y + " , " + v.z + " , " + v.w + " ) ");
@@ -62,13 +62,14 @@ public class GraphicsPipeline : MonoBehaviour
     }
 
     private void writeVectorsToFile(List<Vector4> verts, string before, string after)
-    { writer.WriteLine(before);
+    {
+        writer.WriteLine(before);
 
-      foreach (Vector4 v in verts)
+        foreach (Vector4 v in verts)
         {
             writer.WriteLine(" ( " + v.x + " , " + v.y + " , " + v.z + " , " + v.w + " ) ");
         }
-      writer.WriteLine(after);
+        writer.WriteLine(after);
     }
 
     private List<Vector4> convertToHomg(List<Vector3> vertices)
@@ -87,8 +88,8 @@ public class GraphicsPipeline : MonoBehaviour
     private List<Vector4> applyTransformation
         (List<Vector4> verts, Matrix4x4 tranformMatrix)
     {
-        List<Vector4> output    = new List<Vector4>();
-        foreach (Vector4 v in verts) 
+        List<Vector4> output = new List<Vector4>();
+        foreach (Vector4 v in verts)
         { output.Add(tranformMatrix * v); }
 
         return output;
@@ -98,13 +99,13 @@ public class GraphicsPipeline : MonoBehaviour
     private void displayMatrix(Matrix4x4 rotationMatrix)
     {
         for (int i = 0; i < 4; i++)
-            { print(rotationMatrix.GetRow( i)); }
+        { print(rotationMatrix.GetRow(i)); }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -118,36 +119,79 @@ public class GraphicsPipeline : MonoBehaviour
             {
                 case 0:  // Top Edge  y = 1 whats x?
                     //  x = x1 + (1/m) ( y - y1)
-                    if ( m != 0)
+                    if (m != 0)
                     {
-
+                        return new Vector2(start.x + (1 / m) * (1 - start.y), 1);
                     }
                     else
                     {
-
+                        // This should never happen if called on Outcode advice
+                        if (start.y == 1)
+                            return start;
+                        else
+                            return new Vector2(float.NaN, float.NaN);
                     }
-                        break;
-                    case 1:  // Bottom Edge y = -1 whats x?
 
-                    break;
-                    case 2:  // Left Edge x = -1 what y?
-                             //    y = y1 + m(x - x1)
-                    float y = start.y + m * (-1 - start.x);
+                case 1:  // Bottom Edge y = -1 whats x?
 
-                    return new Vector2(1, y);
-                    break;
-                    default: // Right Egde x = 1 whats y?
-                    //    y = y1 + m(x - x1)
-                    float y = start.y + m * (1 - start.x);
+                    if (m != 0)
+                    {
+                        return new Vector2(start.x + (1 / m) * (-1 - start.y), -1);
+                    }
+                    else
+                    {
+                        // This should never happen if called on Outcode advice
+                        if (start.y == -1)
+                            return start;
+                        else
+                            return new Vector2(float.NaN, float.NaN);
+                    }
+                case 2:  // Left Edge x = -1 what y?
+                         //    y = y1 + m(x - x1)
 
-                    return new Vector2(1, y);
-                    break;
+
+                    return new Vector2(1, start.y + m * (-1 - start.x));
+
+                default: // Right Egde x = 1 whats y?
+                         //    y = y1 + m(x - x1)
+
+
+                    return new Vector2(1, start.y + m * (1 - start.x));
+
             }
 
 
         }
         else
         {
+            // m = infinity i.e. a vertical line
+
+            switch (edgeIndex)
+            {
+                case 0:
+                    // Top Edge 
+                    return new Vector2(start.x, 1);
+
+                case 1:
+                    // Bottom Edge
+                    return new Vector2(start.x, -1);
+
+                case 2:
+                    // Left Edge  (This cannot occur if called on Outcode advice)
+                    if (start.x == -1)
+                        return start;
+
+                    return new Vector2(float.NaN, float.NaN);
+                default:
+                    // Right Edge  (This cannot occur if called on Outcode advice)
+                    if (start.x == 1)
+                        return start;
+
+                    return new Vector2(float.NaN, float.NaN);
+
+
+            }
+
 
         }
 
