@@ -47,6 +47,23 @@ public class GraphicsPipeline : MonoBehaviour
         Matrix4x4 viewingMatrix = Matrix4x4.LookAt(new Vector3(), new Vector3(), new Vector3());
         Matrix4x4 projection = Matrix4x4.Perspective(90, 1, 1, 1000);
         writer.Close();
+
+
+
+        Vector2 s = new Vector2(2,4);
+        Vector2 e = new Vector2(3,-3);
+        print(Intercept(s, e, 0));
+
+        if (LineClip(ref s, ref e))
+        {
+            print(s);
+            print(e);
+        }
+        else
+        { print("Line rejected"); }
+
+
+
     }
 
     private void writeMatrixToFile(Matrix4x4 matrix, string before, string after)
@@ -108,7 +125,40 @@ public class GraphicsPipeline : MonoBehaviour
 
     }
 
+    bool LineClip(ref Vector2 start, ref Vector2 end)
+    { 
+        /*
+        OutCode startOC = new Outcode(start);
 
+
+        if (startOC == inViewPort)
+        {
+            return LineClip(ref end, ref start);
+        }
+        if (startOC.up)
+        {
+           start =  Intercept(start, end, 0);
+            return LineClip(ref start, ref end);
+        }
+
+        if (startOC.down)
+        {
+            start = Intercept(start, end, 1);
+            return LineClip(ref start, ref end);
+        }
+        if (startOC.left)
+        {
+            start = Intercept(start, end, 2);
+            return LineClip(ref start, ref end);
+
+        }
+        if (startOC.right)
+        {
+            start = Intercept(start, end, 3);
+            return LineClip(ref start, ref end);
+        } */
+        return false;
+    }
     Vector2 Intercept(Vector2 start, Vector2 end, int edgeIndex)
     {
         if (end.x != start.x)
